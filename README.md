@@ -7,25 +7,31 @@
 
 React Native Push Notification API for iOS.
 
-## Getting started
+适用于 iOS 的 React Native 消息推送 API
 
-### Install
+## Getting started / 开始
+
+### Install / 安装
 
 ```bash
 yarn add @react-native-community/push-notification-ios
 ```
 
-## Link
+## Link / 链接
 
 ### React Native v0.60+
 
 The package is [automatically linked](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md) when building the app. All you need to do is:
+
+包会在构建 App 的时候自动链接，你需要做的是：
 
 ```bash
 npx pod-install
 ```
 
 For android, the package will be linked automatically on build.
+
+对于 android 来说，构建的时候也会自动链接
 
 <details>
  <summary>For React Native version 0.59 or older</summary>
@@ -50,22 +56,33 @@ If you don't want to use the methods above, you can always [link the library man
 
 </details>
 
-### Add Capabilities : Background Mode - Remote Notifications
+### Add Capabilities : Background Mode - Remote Notifications / 添加功能：后台模式-远程通知
 
 Go into your MyReactProject/ios dir and open MyProject.xcworkspace workspace.
 Select the top project "MyProject" and select the "Signing & Capabilities" tab.
 Add a 2 new Capabilities using "+" button:
 
+进入 MyReactProject / ios 目录，然后打开MyProject.xcworkspace 工作区。
+选择顶部项目“ MyProject”，然后选择“签名和功能”选项卡。
+使用“ +”按钮添加2个新功能：
+
 - `Background Mode` capability and tick `Remote Notifications`.
 - `Push Notifications` capability
 
-### Augment `AppDelegate`
+- 具有“背景模式”功能，然后勾选“远程通知”。
+- `推送通知`功能
+
+### Augment `AppDelegate` / 参数 `AppDelegate`
 
 Finally, to enable support for `notification` and `register` events you need to augment your AppDelegate.
 
-### Update `AppDelegate.h`
+最后，要启用对“通知”和“注册”事件的支持，您需要扩展AppDelegate。
+
+### Update `AppDelegate.h` / 更新 `AppDelegate.h`
 
 At the top of the file:
+
+在文件顶部：
 
 ```objective-c
 #import <UserNotifications/UNUserNotificationCenter.h>
@@ -73,13 +90,17 @@ At the top of the file:
 
 Then, add the 'UNUserNotificationCenterDelegate' to protocols:
 
+然后，将“ UNUserNotificationCenterDelegate”添加到协议中：
+
 ```objective-c
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, UNUserNotificationCenterDelegate>
 ```
 
-### Update `AppDelegate.m`
+### Update `AppDelegate.m` / 更新ʻAppDelegate.m`
 
 At the top of the file:
+
+在文件顶部：
 
 ```objective-c
 #import <UserNotifications/UserNotifications.h>
@@ -87,6 +108,8 @@ At the top of the file:
 ```
 
 Then, add the following lines:
+
+然后，添加以下行：
 
 ```objective-c
 // Required to register for notifications
@@ -128,6 +151,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 And then in your AppDelegate implementation, add the following:
 
+然后在您的 AppDelegate 实现中，添加以下内容：
+
 ```objective-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -146,9 +171,11 @@ And then in your AppDelegate implementation, add the following:
 }
 ```
 
-## Migrating from the core `react-native` module
+## Migrating from the core `react-native` module / 从核心的“ react-native”模块迁移
 
 This module was created when the PushNotificationIOS was split out from the core of React Native. To migrate to this module you need to follow the installation instructions above and then change you imports from:
+
+这个模块是在PushNotificationIOS从React Native的核心中分离出来时创建的。 要迁移到此模块，您需要遵循上面的安装说明，然后从以下位置更改导入：
 
 ```js
 import {PushNotificationIOS} from 'react-native';
@@ -160,9 +187,11 @@ to:
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 ```
 
-## How to determine push notification user click
+## How to determine push notification user click / 如何确定推送通知用户点击
 
 Receiving remote pushes has two common cases: user dismissed notification and user clicked notification. To have separate logic for each case you can use `notification.getData().userInteraction` to determine push notification user click:
+
+接收远程推送有两种常见情况：用户关闭通知和用户单击的通知。 要针对每种情况使用单独的逻辑，可以使用`notification.getData（）。userInteraction`确定推送通知用户单击：
 
 ```js
 export const App = () => {
